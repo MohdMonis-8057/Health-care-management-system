@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>
+        Healthcare Management System
+    </title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+
+<body>
+
+
+    <!-- ================= NAVIGATION ================= -->
+
+    <nav>
+
+        <div class="logo">
+            🏥 Healthcare System
+        </div>
+
+
+        <div class="nav-links">
+
+            <a href="/">
+                Home
+            </a>
+
+            <a href="/patients">
+                Patients
+            </a>
+
+            <a href="/doctors">
+                Doctors
+            </a>
+
+            <a href="/appointments">
+                Appointments
+            </a>
+
+            <a href="/logout">
+                🚪 Logout
+            </a>
+
+        </div>
+
+    </nav>
+
+
+
+    <!-- ================= HEADER ================= -->
+
+    <header>
+
+        <h1>
+            🏥 Healthcare Management System
+        </h1>
+
+        <p>
+            Welcome to your Healthcare Dashboard
+        </p>
+
+    </header>
+
+
+
+    <!-- ================= MAIN ================= -->
+
+    <main>
+
+
+        <h2>
+            📊 Dashboard Overview
+        </h2>
+
+
+
+        <!-- ================= STATISTICS ================= -->
+
+        <div class="dashboard">
+
+
+            <!-- PATIENTS -->
+
+            <div class="card">
+
+                <h2>
+                    👥 Patients
+                </h2>
+
+                <h1>
+                    {{ total_patients }}
+                </h1>
+
+                <p>
+                    Total Registered Patients
+                </p>
+
+
+                <a href="/patients">
+
+                    <button type="button">
+                        View Patients
+                    </button>
+
+                </a>
+
+            </div>
+
+
+
+            <!-- DOCTORS -->
+
+            <div class="card">
+
+                <h2>
+                    👨‍⚕️ Doctors
+                </h2>
+
+                <h1>
+                    {{ total_doctors }}
+                </h1>
+
+                <p>
+                    Total Registered Doctors
+                </p>
+
+
+                <a href="/doctors">
+
+                    <button type="button">
+                        View Doctors
+                    </button>
+
+                </a>
+
+            </div>
+
+
+
+            <!-- APPOINTMENTS -->
+
+            <div class="card">
+
+                <h2>
+                    📅 Appointments
+                </h2>
+
+                <h1>
+                    {{ total_appointments }}
+                </h1>
+
+                <p>
+                    Total Appointments
+                </p>
+
+
+                <a href="/appointments">
+
+                    <button type="button">
+                        View Appointments
+                    </button>
+
+                </a>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ================= QUICK ACTIONS ================= -->
+
+        <div class="card">
+
+            <h2>
+                ⚡ Quick Actions
+            </h2>
+
+
+            <a href="/patients">
+
+                <button type="button">
+                    ➕ Manage Patients
+                </button>
+
+            </a>
+
+
+            <a href="/doctors">
+
+                <button type="button">
+                    👨‍⚕️ Manage Doctors
+                </button>
+
+            </a>
+
+
+            <a href="/appointments">
+
+                <button type="button">
+                    📅 Manage Appointments
+                </button>
+
+            </a>
+
+
+            <a href="/backup">
+
+                <button type="button">
+                    💾 Backup Database
+                </button>
+
+            </a>
+
+        </div>
+
+
+
+        <!-- ================= RECENT APPOINTMENTS ================= -->
+
+        <div class="card">
+
+            <h2>
+                🕒 Recent Appointments
+            </h2>
+
+
+            {% if recent_appointments %}
+
+
+                {% for appointment in recent_appointments %}
+
+
+                    <p>
+
+                        <strong>
+                            👤 Patient:
+                        </strong>
+
+                        {{ appointment["patient_name"] }}
+
+                        <br>
+
+
+                        <strong>
+                            👨‍⚕️ Doctor:
+                        </strong>
+
+                        {{ appointment["doctor_name"] }}
+
+                        <br>
+
+
+                        <strong>
+                            📅 Date:
+                        </strong>
+
+                        {{ appointment["appointment_date"] }}
+
+                        <br>
+
+
+                        <strong>
+                            ⏰ Time:
+                        </strong>
+
+                        {{ appointment["appointment_time"] }}
+
+                    </p>
+
+
+                    <hr>
+
+
+                {% endfor %}
+
+
+            {% else %}
+
+
+                <p>
+                    📭 No recent appointments.
+                </p>
+
+
+            {% endif %}
+
+        </div>
+
+
+
+        <!-- ================= UPCOMING APPOINTMENTS ================= -->
+
+        <div class="card">
+
+            <h2>
+                📅 Upcoming Appointments
+            </h2>
+
+
+            {% if upcoming_appointments %}
+
+
+                {% for appointment in upcoming_appointments %}
+
+
+                    <p>
+
+                        <strong>
+                            👤 Patient:
+                        </strong>
+
+                        {{ appointment["patient_name"] }}
+
+                        <br>
+
+
+                        <strong>
+                            👨‍⚕️ Doctor:
+                        </strong>
+
+                        {{ appointment["doctor_name"] }}
+
+                        <br>
+
+
+                        <strong>
+                            📅 Date:
+                        </strong>
+
+                        {{ appointment["appointment_date"] }}
+
+                        <br>
+
+
+                        <strong>
+                            ⏰ Time:
+                        </strong>
+
+                        {{ appointment["appointment_time"] }}
+
+                        <br>
+
+
+                        <strong>
+                            📝 Reason:
+                        </strong>
+
+                        {{ appointment["reason"] }}
+
+                    </p>
+
+
+                    <hr>
+
+
+                {% endfor %}
+
+
+            {% else %}
+
+
+                <p>
+                    📭 No upcoming appointments.
+                </p>
+
+
+            {% endif %}
+
+        </div>
+
+
+
+        <!-- ================= BACKUP INFORMATION ================= -->
+
+        <div class="card">
+
+            <h2>
+                💾 Database Backup
+            </h2>
+
+            <p>
+                Keep a backup of your healthcare data
+                before making important changes.
+            </p>
+
+
+            <a href="/backup">
+
+                <button type="button">
+                    💾 Download Database Backup
+                </button>
+
+            </a>
+
+        </div>
+
+
+    </main>
+
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer>
+
+        <p>
+            © 2026 Healthcare Management System
+        </p>
+
+    </footer>
+
+
+</body>
+
+</html>

@@ -1,0 +1,505 @@
+/* ================= GENERAL ================= */
+
+* {
+    box-sizing: border-box;
+}
+
+
+body {
+    margin: 0;
+
+    padding: 0;
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    background: #f4f7fb;
+
+    color: #222;
+}
+
+
+/* ================= NAVIGATION ================= */
+
+nav {
+    background: #1976d2;
+
+    color: white;
+
+    padding: 15px 5%;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    flex-wrap: wrap;
+
+    gap: 15px;
+}
+
+
+.logo {
+    font-size: 22px;
+
+    font-weight: bold;
+}
+
+
+.nav-links {
+    display: flex;
+
+    gap: 18px;
+
+    flex-wrap: wrap;
+
+    align-items: center;
+}
+
+
+.nav-links a {
+    color: white;
+
+    text-decoration: none;
+
+    font-weight: bold;
+
+    padding: 8px 10px;
+
+    border-radius: 6px;
+
+    transition: 0.3s;
+}
+
+
+.nav-links a:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+
+/* ================= HEADER ================= */
+
+header {
+    text-align: center;
+
+    padding: 35px 20px;
+
+    background: white;
+
+    border-bottom: 1px solid #ddd;
+}
+
+
+header h1 {
+    margin-bottom: 10px;
+
+    color: #1976d2;
+}
+
+
+header p {
+    margin: 0;
+
+    color: #666;
+
+    font-size: 16px;
+}
+
+
+/* ================= MAIN ================= */
+
+main {
+    width: 90%;
+
+    max-width: 1200px;
+
+    margin: 30px auto;
+}
+
+
+main > h2 {
+    text-align: center;
+
+    margin-bottom: 25px;
+
+    color: #333;
+}
+
+
+/* ================= DASHBOARD ================= */
+
+.dashboard {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 20px;
+
+    margin-bottom: 25px;
+}
+
+
+/* ================= CARD ================= */
+
+.card {
+    background: white;
+
+    padding: 25px;
+
+    margin-bottom: 25px;
+
+    border-radius: 12px;
+
+    box-shadow:
+        0 3px 12px
+        rgba(0, 0, 0, 0.08);
+}
+
+
+.card h2 {
+    margin-top: 0;
+
+    color: #1976d2;
+}
+
+
+.card h1 {
+    font-size: 38px;
+
+    margin: 10px 0;
+
+    color: #1976d2;
+}
+
+
+.card p {
+    color: #555;
+
+    line-height: 1.6;
+}
+
+
+/* ================= FORM ================= */
+
+form {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 10px;
+}
+
+
+label {
+    font-weight: bold;
+
+    margin-top: 8px;
+}
+
+
+input,
+select,
+textarea {
+    width: 100%;
+
+    padding: 12px;
+
+    border: 1px solid #ccc;
+
+    border-radius: 7px;
+
+    font-size: 15px;
+
+    background: white;
+}
+
+
+input:focus,
+select:focus,
+textarea:focus {
+    outline: none;
+
+    border-color: #1976d2;
+
+    box-shadow:
+        0 0 0 2px
+        rgba(25, 118, 210, 0.1);
+}
+
+
+/* ================= BUTTON ================= */
+
+button {
+    border: none;
+
+    background: #1976d2;
+
+    color: white;
+
+    padding: 11px 18px;
+
+    border-radius: 7px;
+
+    cursor: pointer;
+
+    font-size: 14px;
+
+    font-weight: bold;
+
+    margin-top: 5px;
+
+    transition: 0.3s;
+}
+
+
+button:hover {
+    background: #125ca8;
+
+    transform: translateY(-1px);
+}
+
+
+/* ================= LINKS ================= */
+
+a {
+    text-decoration: none;
+}
+
+
+/* ================= TABLE ================= */
+
+table {
+    width: 100%;
+
+    border-collapse: collapse;
+
+    margin-top: 15px;
+
+    min-width: 700px;
+}
+
+
+th,
+td {
+    border: 1px solid #ddd;
+
+    padding: 12px;
+
+    text-align: left;
+}
+
+
+th {
+    background: #1976d2;
+
+    color: white;
+}
+
+
+tr:nth-child(even) {
+    background: #f8fbff;
+}
+
+
+tr:hover {
+    background: #eef6ff;
+}
+
+
+/* ================= TABLE BUTTONS ================= */
+
+td button {
+    margin-right: 5px;
+
+    margin-bottom: 5px;
+}
+
+
+/* ================= HR ================= */
+
+hr {
+    border: none;
+
+    border-top: 1px solid #eee;
+
+    margin: 18px 0;
+}
+
+
+/* ================= FOOTER ================= */
+
+footer {
+    text-align: center;
+
+    background: #1976d2;
+
+    color: white;
+
+    padding: 18px;
+
+    margin-top: 40px;
+}
+
+
+footer p {
+    margin: 0;
+}
+
+
+/* ================= MOBILE ================= */
+
+@media (max-width: 768px) {
+
+
+    nav {
+        flex-direction: column;
+
+        text-align: center;
+
+        padding: 15px;
+    }
+
+
+    .logo {
+        font-size: 20px;
+    }
+
+
+    .nav-links {
+        justify-content: center;
+
+        gap: 5px;
+    }
+
+
+    .nav-links a {
+        font-size: 14px;
+
+        padding: 7px;
+    }
+
+
+    header {
+        padding: 25px 15px;
+    }
+
+
+    header h1 {
+        font-size: 25px;
+    }
+
+
+    main {
+        width: 94%;
+
+        margin: 20px auto;
+    }
+
+
+    .dashboard {
+        grid-template-columns: 1fr;
+
+        gap: 15px;
+    }
+
+
+    .card {
+        padding: 18px;
+
+        border-radius: 10px;
+    }
+
+
+    .card h1 {
+        font-size: 32px;
+    }
+
+
+    button {
+        width: 100%;
+
+        padding: 12px;
+    }
+
+
+    input,
+    select,
+    textarea {
+        font-size: 16px;
+
+        padding: 12px;
+    }
+
+
+    table {
+        min-width: 700px;
+    }
+
+}
+
+
+/* ================= SMALL MOBILE ================= */
+
+@media (max-width: 480px) {
+
+
+    .logo {
+        font-size: 18px;
+    }
+
+
+    .nav-links {
+        flex-direction: column;
+
+        width: 100%;
+    }
+
+
+    .nav-links a {
+        width: 100%;
+
+        text-align: center;
+
+        padding: 9px;
+    }
+
+
+    header h1 {
+        font-size: 22px;
+    }
+
+
+    header p {
+        font-size: 14px;
+    }
+
+
+    main {
+        width: 96%;
+    }
+
+
+    .card {
+        padding: 15px;
+    }
+
+
+    .card h2 {
+        font-size: 20px;
+    }
+
+
+    .card h1 {
+        font-size: 28px;
+    }
+
+
+    footer {
+        font-size: 14px;
+    }
+
+}

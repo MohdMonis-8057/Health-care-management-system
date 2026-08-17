@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>
+        Edit Patient
+    </title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+
+<body>
+
+
+    <!-- ================= NAVIGATION ================= -->
+
+    <nav>
+
+        <div class="logo">
+            🏥 Healthcare System
+        </div>
+
+
+        <div class="nav-links">
+
+            <a href="/">
+                Home
+            </a>
+
+            <a href="/patients">
+                Patients
+            </a>
+
+            <a href="/doctors">
+                Doctors
+            </a>
+
+            <a href="/appointments">
+                Appointments
+            </a>
+
+            <a href="/logout">
+                🚪 Logout
+            </a>
+
+        </div>
+
+    </nav>
+
+
+
+    <!-- ================= HEADER ================= -->
+
+    <header>
+
+        <h1>
+            ✏️ Edit Patient
+        </h1>
+
+        <p>
+            Update Patient Information
+        </p>
+
+    </header>
+
+
+
+    <!-- ================= MAIN ================= -->
+
+    <main>
+
+
+        <div class="card">
+
+            <h2>
+                👤 Patient Details
+            </h2>
+
+
+            <form
+                action="/edit_patient/{{ patient['id'] }}"
+                method="POST"
+            >
+
+
+                <!-- ================= NAME ================= -->
+
+                <label>
+                    Patient Name
+                </label>
+
+
+                <input
+                    type="text"
+                    name="name"
+                    value="{{ patient['name'] }}"
+                    placeholder="Enter patient name"
+                    required
+                >
+
+
+
+                <!-- ================= AGE ================= -->
+
+                <label>
+                    Age
+                </label>
+
+
+                <input
+                    type="number"
+                    name="age"
+                    value="{{ patient['age'] }}"
+                    min="1"
+                    max="120"
+                    required
+                >
+
+
+
+                <!-- ================= PHONE ================= -->
+
+                <label>
+                    Phone Number
+                </label>
+
+
+                <input
+                    type="tel"
+                    name="phone"
+                    value="{{ patient['phone'] }}"
+                    placeholder="Enter phone number"
+                    required
+                >
+
+
+
+                <!-- ================= DISEASE ================= -->
+
+                <label>
+                    Disease / Problem
+                </label>
+
+
+                <input
+                    type="text"
+                    name="disease"
+                    value="{{ patient['disease'] }}"
+                    placeholder="Enter disease or health problem"
+                    required
+                >
+
+
+
+                <!-- ================= BUTTONS ================= -->
+
+                <button type="submit">
+                    💾 Update Patient
+                </button>
+
+
+                <a href="/patients">
+
+                    <button
+                        type="button"
+                    >
+                        ❌ Cancel
+                    </button>
+
+                </a>
+
+            </form>
+
+        </div>
+
+    </main>
+
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer>
+
+        <p>
+            © 2026 Healthcare Management System
+        </p>
+
+    </footer>
+
+
+</body>
+
+</html>

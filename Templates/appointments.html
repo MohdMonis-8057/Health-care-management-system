@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>
+        Appointment Management
+    </title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+
+<body>
+
+
+    <!-- ================= NAVIGATION ================= -->
+
+    <nav>
+
+        <div class="logo">
+            🏥 Healthcare System
+        </div>
+
+
+        <div class="nav-links">
+
+            <a href="/">
+                Home
+            </a>
+
+            <a href="/patients">
+                Patients
+            </a>
+
+            <a href="/doctors">
+                Doctors
+            </a>
+
+            <a href="/appointments">
+                Appointments
+            </a>
+
+            <a href="/logout">
+                🚪 Logout
+            </a>
+
+        </div>
+
+    </nav>
+
+
+
+    <!-- ================= HEADER ================= -->
+
+    <header>
+
+        <h1>
+            📅 Appointment Management
+        </h1>
+
+        <p>
+            Schedule and Manage Patient Appointments
+        </p>
+
+    </header>
+
+
+
+    <!-- ================= MAIN ================= -->
+
+    <main>
+
+
+        <!-- ================= SEARCH ================= -->
+
+        <div class="card">
+
+            <h2>
+                🔎 Search Appointment
+            </h2>
+
+
+            <form
+                action="/appointments"
+                method="GET"
+            >
+
+                <input
+                    type="text"
+                    name="search"
+                    placeholder="Search by patient or doctor..."
+                    value="{{ search }}"
+                >
+
+
+                <button type="submit">
+                    🔎 Search
+                </button>
+
+
+                <a href="/appointments">
+
+                    <button
+                        type="button"
+                    >
+                        🔄 Show All
+                    </button>
+
+                </a>
+
+            </form>
+
+        </div>
+
+
+
+        <!-- ================= ADD APPOINTMENT ================= -->
+
+        <div class="card">
+
+            <h2>
+                ➕ Book New Appointment
+            </h2>
+
+
+            <form
+                action="/add_appointment"
+                method="POST"
+                id="appointmentForm"
+            >
+
+
+                <!-- ================= PATIENT ================= -->
+
+                <label>
+                    Patient
+                </label>
+
+
+                <select
+                    name="patient_name"
+                    id="patientName"
+                    required
+                >
+
+                    <option value="">
+                        -- Select Patient --
+                    </option>
+
+
+                    {% for patient in patients %}
+
+                    <option
+                        value="{{ patient['name'] }}"
+                    >
+
+                        {{ patient['name'] }}
+
+                    </option>
+
+                    {% endfor %}
+
+                </select>
+
+
+
+                <!-- ================= DOCTOR ================= -->
+
+                <label>
+                    Doctor
+                </label>
+
+
+                <select
+                    name="doctor_name"
+                    id="doctorName"
+                    required
+                >
+
+                    <option value="">
+                        -- Select Doctor --
+                    </option>
+
+
+                    {% for doctor in doctors %}
+
+                    <option
+                        value="{{ doctor['name'] }}"
+                    >
+
+                        {{ doctor['name'] }}
+
+                    </option>
+
+                    {% endfor %}
+
+                </select>
+
+
+
+                <!-- ================= DATE ================= -->
+
+                <label>
+                    Appointment Date
+                </label>
+
+
+                <input
+                    type="date"
+                    id="appointmentDate"
+                    name="appointment_date"
+                    required
+                >
+
+
+
+                <!-- ================= TIME ================= -->
+
+                <label>
+                    Appointment Time
+                </label>
+
+
+                <input
+                    type="time"
+                    id="appointmentTime"
+                    name="appointment_time"
+                    required
+                >
+
+
+
+                <!-- ================= REASON ================= -->
+
+                <label>
+                    Reason
+                </label>
+
+
+                <input
+                    type="text"
+                    name="reason"
+                    id="appointmentReason"
+                    placeholder="Enter reason for appointment..."
+                    minlength="2"
+                    maxlength="200"
+                    required
+                >
+
+
+
+                <!-- ================= BUTTON ================= -->
+
+                <button type="submit">
+                    📅 Book Appointment
+                </button>
+
+            </form>
+
+        </div>
+
+
+
+        <!-- ================= APPOINTMENT LIST ================= -->
+
+        <div class="card">
+
+            <h2>
+                📋 Appointment List
+            </h2>
+
+
+            {% if appointments %}
+
+
+                <div style="overflow-x: auto;">
+
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+
+                                <th>
+                                    ID
+                                </th>
+
+                                <th>
+                                    Patient
+                                </th>
+
+                                <th>
+                                    Doctor
+                                </th>
+
+                                <th>
+                                    Date
+                                </th>
+
+                                <th>
+                                    Time
+                                </th>
+
+                                <th>
+                                    Reason
+                                </th>
+
+                                <th>
+                                    Actions
+                                </th>
+
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody>
+
+
+                            {% for appointment in appointments %}
+
+
+                            <tr>
+
+                                <td>
+                                    {{ appointment["id"] }}
+                                </td>
+
+
+                                <td>
+                                    {{ appointment["patient_name"] }}
+                                </td>
+
+
+                                <td>
+                                    {{ appointment["doctor_name"] }}
+                                </td>
+
+
+                                <td>
+                                    {{ appointment["appointment_date"] }}
+                                </td>
+
+
+                                <td>
+                                    {{ appointment["appointment_time"] }}
+                                </td>
+
+
+                                <td>
+                                    {{ appointment["reason"] }}
+                                </td>
+
+
+                                <td>
+
+
+                                    <a
+                                        href="/edit_appointment/{{ appointment['id'] }}"
+                                    >
+
+                                        <button
+                                            type="button"
+                                        >
+                                            ✏️ Edit
+                                        </button>
+
+                                    </a>
+
+
+                                    <a
+                                        href="/delete_appointment/{{ appointment['id'] }}"
+                                        onclick="return confirm('Are you sure you want to delete this appointment?');"
+                                    >
+
+                                        <button
+                                            type="button"
+                                        >
+                                            🗑️ Delete
+                                        </button>
+
+                                    </a>
+
+
+                                </td>
+
+                            </tr>
+
+
+                            {% endfor %}
+
+
+                        </tbody>
+
+                    </table>
+
+
+                </div>
+
+
+            {% else %}
+
+
+                <p>
+                    📭 No appointments found.
+                </p>
+
+
+            {% endif %}
+
+        </div>
+
+    </main>
+
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer>
+
+        <p>
+            © 2026 Healthcare Management System
+        </p>
+
+    </footer>
+
+
+
+    <!-- ================= VALIDATION ================= -->
+
+    <script>
+
+        const appointmentForm =
+            document.getElementById(
+                "appointmentForm"
+            );
+
+
+        const appointmentDate =
+            document.getElementById(
+                "appointmentDate"
+            );
+
+
+        const appointmentTime =
+            document.getElementById(
+                "appointmentTime"
+            );
+
+
+        const reason =
+            document.getElementById(
+                "appointmentReason"
+            );
+
+
+        function getToday() {
+
+            const now =
+                new Date();
+
+
+            const year =
+                now.getFullYear();
+
+
+            const month =
+                String(
+                    now.getMonth() + 1
+                ).padStart(2, "0");
+
+
+            const day =
+                String(
+                    now.getDate()
+                ).padStart(2, "0");
+
+
+            return (
+                year +
+                "-" +
+                month +
+                "-" +
+                day
+            );
+
+        }
+
+
+        appointmentDate.min =
+            getToday();
+
+
+        appointmentDate.addEventListener(
+            "change",
+            function() {
+
+                if (
+                    appointmentDate.value ===
+                    getToday()
+                ) {
+
+                    const now =
+                        new Date();
+
+
+                    const hours =
+                        String(
+                            now.getHours()
+                        ).padStart(2, "0");
+
+
+                    const minutes =
+                        String(
+                            now.getMinutes()
+                        ).padStart(2, "0");
+
+
+                    appointmentTime.min =
+                        hours +
+                        ":" +
+                        minutes;
+
+                }
+
+                else {
+
+                    appointmentTime.removeAttribute(
+                        "min"
+                    );
+
+                }
+
+            }
+        );
+
+
+        appointmentForm.addEventListener(
+            "submit",
+            function(event) {
+
+
+                const patient =
+                    document.getElementById(
+                        "patientName"
+                    ).value;
+
+
+                const doctor =
+                    document.getElementById(
+                        "doctorName"
+                    ).value;
+
+
+                const selectedDate =
+                    appointmentDate.value;
+
+
+                const selectedTime =
+                    appointmentTime.value;
+
+
+                const reasonValue =
+                    reason.value.trim();
+
+
+                if (!patient) {
+
+                    event.preventDefault();
+
+                    alert(
+                        "❌ Please select a patient."
+                    );
+
+                    return;
+
+                }
+
+
+                if (!doctor) {
+
+                    event.preventDefault();
+
+                    alert(
+                        "❌ Please select a doctor."
+                    );
+
+                    return;
+
+                }
+
+
+                if (!selectedDate) {
+
+                    event.preventDefault();
+
+                    alert(
+                        "❌ Please select an appointment date."
+                    );
+
+                    return;
+
+                }
+
+
+                if (!selectedTime) {
+
+                    event.preventDefault();
+
+                    alert(
+                        "❌ Please select an appointment time."
+                    );
+
+                    return;
+
+                }
+
+
+                if (
+                    reasonValue.length < 2
+                ) {
+
+                    event.preventDefault();
+
+                    alert(
+                        "❌ Please enter a valid reason."
+                    );
+
+                    return;
+
+                }
+
+
+                const selectedDateTime =
+                    new Date(
+                        selectedDate +
+                        "T" +
+                        selectedTime
+                    );
+
+
+                const now =
+                    new Date();
+
+
+                if (
+                    selectedDateTime < now
+                ) {
+
+                    event.preventDefault();
+
+                    alert(
+                        "❌ Appointment date and time must be in the future."
+                    );
+
+                    return;
+
+                }
+
+            }
+        );
+
+    </script>
+
+
+</body>
+
+</html>

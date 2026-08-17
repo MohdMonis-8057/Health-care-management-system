@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>
+        Edit Appointment
+    </title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+
+<body>
+
+
+    <!-- ================= NAVIGATION ================= -->
+
+    <nav>
+
+        <div class="logo">
+            🏥 Healthcare System
+        </div>
+
+
+        <div class="nav-links">
+
+            <a href="/">
+                Home
+            </a>
+
+            <a href="/patients">
+                Patients
+            </a>
+
+            <a href="/doctors">
+                Doctors
+            </a>
+
+            <a href="/appointments">
+                Appointments
+            </a>
+
+            <a href="/logout">
+                🚪 Logout
+            </a>
+
+        </div>
+
+    </nav>
+
+
+
+    <!-- ================= HEADER ================= -->
+
+    <header>
+
+        <h1>
+            ✏️ Edit Appointment
+        </h1>
+
+        <p>
+            Update Appointment Information
+        </p>
+
+    </header>
+
+
+
+    <!-- ================= MAIN ================= -->
+
+    <main>
+
+
+        <div class="card">
+
+            <h2>
+                📅 Appointment Details
+            </h2>
+
+
+            <form
+                action="/edit_appointment/{{ appointment['id'] }}"
+                method="POST"
+                id="editAppointmentForm"
+            >
+
+
+                <!-- ================= PATIENT ================= -->
+
+                <label>
+                    Patient
+                </label>
+
+
+                <select
+                    name="patient_name"
+                    required
+                >
+
+                    <option value="">
+                        -- Select Patient --
+                    </option>
+
+
+                    {% for patient in patients %}
+
+
+                        <option
+                            value="{{ patient['name'] }}"
+                            {% if patient['name'] == appointment['patient_name'] %}
+                                selected
+                            {% endif %}
+                        >
+
+                            {{ patient['name'] }}
+
+                        </option>
+
+
+                    {% endfor %}
+
+                </select>
+
+
+
+                <!-- ================= DOCTOR ================= -->
+
+                <label>
+                    Doctor
+                </label>
+
+
+                <select
+                    name="doctor_name"
+                    required
+                >
+
+                    <option value="">
+                        -- Select Doctor --
+                    </option>
+
+
+                    {% for doctor in doctors %}
+
+
+                        <option
+                            value="{{ doctor['name'] }}"
+                            {% if doctor['name'] == appointment['doctor_name'] %}
+                                selected
+                            {% endif %}
+                        >
+
+                            {{ doctor['name'] }}
+
+                        </option>
+
+
+                    {% endfor %}
+
+                </select>
+
+
+
+                <!-- ================= DATE ================= -->
+
+                <label>
+                    Appointment Date
+                </label>
+
+
+                <input
+                    type="date"
+                    id="appointment_date"
+                    name="appointment_date"
+                    value="{{ appointment['appointment_date'] }}"
+                    required
+                >
+
+
+
+                <!-- ================= TIME ================= -->
+
+                <label>
+                    Appointment Time
+                </label>
+
+
+                <input
+                    type="time"
+                    id="appointment_time"
+                    name="appointment_time"
+                    value="{{ appointment['appointment_time'] }}"
+                    required
+                >
+
+
+
+                <!-- ================= REASON ================= -->
+
+                <label>
+                    Reason
+                </label>
+
+
+                <input
+                    type="text"
+                    name="reason"
+                    value="{{ appointment['reason'] }}"
+                    placeholder="Enter reason for appointment"
+                    required
+                >
+
+
+
+                <!-- ================= BUTTONS ================= -->
+
+                <button type="submit">
+                    💾 Update Appointment
+                </button>
+
+
+                <a href="/appointments">
+
+                    <button
+                        type="button"
+                    >
+                        ❌ Cancel
+                    </button>
+
+                </a>
+
+            </form>
+
+        </div>
+
+    </main>
+
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer>
+
+        <p>
+            © 2026 Healthcare Management System
+        </p>
+
+    </footer>
+
+
+
+    <!-- ================= DATE/TIME VALIDATION ================= -->
+
+    <script>
+
+        const dateInput =
+            document.getElementById(
+                "appointment_date"
+            );
+
+
+        const timeInput =
+            document.getElementById(
+                "appointment_time"
+            );
+
+
+        const form =
+            document.getElementById(
+                "editAppointmentForm"
+            );
+
+
+        function setDateLimit() {
+
+            const now =
+                new Date();
+
+
+            const year =
+                now.getFullYear();
+
+
+            const month =
+                String(
+                    now.getMonth() + 1
+                ).padStart(2, "0");
+
+
+            const day =
+                String(
+                    now.getDate()
+                ).padStart(2, "0");
+
+
+            const today =
+                year +
+                "-" +
+                month +
+                "-" +
+                day;
+
+
+            dateInput.min = today;
+
+        }
+
+
+        function checkTime() {
+
+            const now =
+                new Date();
+
+
+            if (
+                dateInput.value ===
+                dateInput.min
+            ) {
+
+                const hours =
+                    String(
+                        now.getHours()
+                    ).padStart(2, "0");
+
+
+                const minutes =
+                    String(
+                        now.getMinutes()
+                    ).padStart(2, "0");
+
+
+                timeInput.min =
+                    hours +
+                    ":" +
+                    minutes;
+
+            }
+
+            else {
+
+                timeInput.removeAttribute(
+                    "min"
+                );
+
+            }
+
+        }
+
+
+        dateInput.addEventListener(
+            "change",
+            checkTime
+        );
+
+
+        form.addEventListener(
+            "submit",
+            function(event) {
+
+                const selectedDate =
+                    dateInput.value;
+
+
+                const selectedTime =
+                    timeInput.value;
+
+
+                const now =
+                    new Date();
+
+
+                const selectedDateTime =
+                    new Date(
+                        selectedDate +
+                        "T" +
+                        selectedTime
+                    );
+
+
+                if (
+                    selectedDateTime < now
+                ) {
+
+                    event.preventDefault();
+
+
+                    alert(
+                        "❌ Please select a future date and time."
+                    );
+
+                }
+
+            }
+        );
+
+
+        setDateLimit();
+
+        checkTime();
+
+    </script>
+
+
+</body>
+
+</html>
