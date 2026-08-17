@@ -110,7 +110,7 @@ def create_table():
         SELECT * FROM users
         WHERE username = ?
         """,
-        ("admin",)
+        ("Mohd Monis",)
     ).fetchone()
 
 
@@ -123,8 +123,8 @@ def create_table():
             VALUES (?, ?)
             """,
             (
-                "admin",
-                "admin123"
+                "Mohd Monis",
+                "@805757"
             )
         )
 
