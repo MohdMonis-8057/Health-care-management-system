@@ -10,7 +10,7 @@ app = Flask(__name__)
 
 # ================= DATABASE =================
 
-DATABASE = "database/healthcare.db"
+DATABASE = "database.db"
 
 BACKUP_FOLDER = "database/backups"
 
